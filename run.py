@@ -1,14 +1,11 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
+import click
 
-from mineapp.blueprints.blue1.blue1 import blue1
 import config
+from mineapp import create_app
 
-app = Flask('mineapp')
-app.config.from_object(config.DevelopmentConfig)
-app.register_blueprint(blue1)
+app = create_app(config.DevelopmentConfig)
 
-bootstrap = Bootstrap(app)
-
-if __name__ == '__main__':
-    app.run()
+@app.cli.command()
+def initdb():
+    click.echo('init the db')
